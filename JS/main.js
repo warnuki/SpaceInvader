@@ -83,5 +83,11 @@ function createMissile(){
     app.stage.addChild(m); 
 }
 
-
+function moveEnnemis() {
+    setTimeout(function(){
+        a.move();
+        moveEnnemis()
+    },500);
+  }
+moveEnnemis();
 
