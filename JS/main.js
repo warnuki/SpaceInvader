@@ -66,7 +66,14 @@ function gameloop(){
     v.move();
     for(let i = 0; i < tMissiles.length; i++){
         tMissiles[i].move();
+        if(G.collide(tMissiles[i],a)){
+            app.stage.removeChild(a);
+            app.stage.removeChild(tMissiles[i]);
+            tMissiles.splice(a,1); 
+            break;
+        }
     }
+
 }
 
 function createVaisseau(){
