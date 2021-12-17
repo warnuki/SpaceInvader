@@ -21,7 +21,7 @@ export default class Alien extends PIXI.Sprite{
         //propriéte d'instance
         this.x = x;
         this.y = y;
-        this._sens = 0;
+        this._sens = 1;
     }
 
 
@@ -29,22 +29,16 @@ export default class Alien extends PIXI.Sprite{
      * Déplacemenet de la balle
      */
     move(){
-        if(this.x < G.wST){
-            this.x += 100,
-            console.log('oui');
+        if(this._sens === 1 && this.x + 100 > G.wST){
+            this._sens = -1;
+            this.y += 50;
         }
-        else if(this.x === G.wST){
-            this.y += 100,
-            this.x -= 100,
-            console.log('non');
+        else if( this._sens === -1 && this.x - 100 < 0){
+            this._sens = 1;
+            this.y += 100;
         } 
-        else if(this.x > 0){
-            this.x -= 100,
-            console.log('test');
-        }
-        else if(this.x < 0){
-            this.y += 100,
-            console.log('y');
+        else {
+            this.x += this._sens * 100;
         }
     }
 
