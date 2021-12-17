@@ -1,8 +1,10 @@
 //importation
 import Vaisseau from "./vaisseau.js";
+import Alien from "./alien.js"
+import Missile from "./missile.js"
 import G from "./G.js";
 
-let textures,v;
+let textures,v,a,m;
 
 //Création de l'application pixi
 const app = new PIXI.Application({
@@ -23,6 +25,8 @@ loader.load((loader, resources)  => {
     console.log(textures);
 
     createVaisseau();
+    createAlien();
+    createMissile();
 
     // Animation
     app.ticker.add(() => {
@@ -58,11 +62,26 @@ window.addEventListener('keyup', (e) =>{
     }  
 })
 
+
 function gameloop(){
     requestAnimationFrame(gameloop);
+    v.move();
 }
 
 function createVaisseau(){
-    v = new Vaisseau(100, 300, 5, textures);
-    app.stage.addChild(v);
+    v = new Vaisseau(100, 300, 2, textures);
+    app.stage.addChild(v); 
 }
+
+function createAlien(){
+    a = new Alien(100, 100, textures);
+    app.stage.addChild(a); 
+}
+
+function createMissile(){
+    m = new Missile(100, 200, textures);
+    app.stage.addChild(m); 
+}
+
+
+

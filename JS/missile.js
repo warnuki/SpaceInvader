@@ -1,7 +1,7 @@
 import G from "./G.js";
 
 // creation de la classe et exportation
-export default class Vaisseau extends PIXI.Sprite{
+export default class Missile extends PIXI.Sprite{
     //Constructeur
     /** constructeur de la classe Ball
      * 
@@ -12,16 +12,15 @@ export default class Vaisseau extends PIXI.Sprite{
      * let p = new Pad(100, 100, 20, 0xFFFF3, 215, 20);
      * app.stage.addChild(p))
      */
-    constructor(x, y, speed, textures){
+    constructor(x, y, textures){
  
 
         //invoque le constructeur de la super classe
-        super(textures["vaisseau_0"]);
+        super(textures["Missile1_0"]);
 
         //propriéte d'instance
         this.x = x;
         this.y = y;
-        this.speed = speed;
         this._sens = 0;
     }
 
