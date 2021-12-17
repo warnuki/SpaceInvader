@@ -5,7 +5,7 @@ import Missile from "./missile.js"
 import G from "./G.js";
 
 let textures,v,a,m;
-
+let tMissiles = [];
 //Création de l'application pixi
 const app = new PIXI.Application({
     width : G.wST,
@@ -26,12 +26,10 @@ loader.load((loader, resources)  => {
 
     createVaisseau();
     createAlien();
-    createMissile();
+   
 
-    // Animation
-    app.ticker.add(() => {
         gameloop();
-   });
+        moveEnnemis();
 })
 
 
@@ -47,7 +45,7 @@ window.addEventListener('keydown', (e) =>{
     }
     // espace
     else if(e.keyCode === 32){
-
+        tMissiles.push(createMissile());
     }
 })
 
@@ -66,10 +64,13 @@ window.addEventListener('keyup', (e) =>{
 function gameloop(){
     requestAnimationFrame(gameloop);
     v.move();
+    for(let i = 0; i < tMissiles.length; i++){
+        tMissiles[i].move();
+    }
 }
 
 function createVaisseau(){
-    v = new Vaisseau(100, 300, 2, textures);
+    v = new Vaisseau(100, 300, 5, textures);
     app.stage.addChild(v); 
 }
 
@@ -79,15 +80,18 @@ function createAlien(){
 }
 
 function createMissile(){
-    m = new Missile(100, 200, textures);
+    m = new Missile(v.x, v.y, textures);
     app.stage.addChild(m); 
+    return m;
 }
 
 function moveEnnemis() {
     setTimeout(function(){
         a.move();
         moveEnnemis()
-    },500);
+    },10);
   }
-moveEnnemis();
+
+
+
 

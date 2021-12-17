@@ -29,9 +29,7 @@ export default class Missile extends PIXI.Sprite{
      * Déplacemenet de la balle
      */
     move(){
-        this.x += this.speed *this._sens;
-        //this.x = Math.max(this.w * 0.5, Math.min(G.wST - this.w * 0.5, this.x));
-        
+        this.y -= 5;
     }
 
     /**

@@ -29,16 +29,16 @@ export default class Alien extends PIXI.Sprite{
      * Déplacemenet de la balle
      */
     move(){
-        if(this._sens === 1 && this.x + 100 > G.wST){
+        if(this._sens === 1 && this.x + 3 > G.wST){
             this._sens = -1;
             this.y += 50;
         }
-        else if( this._sens === -1 && this.x - 100 < 0){
+        else if( this._sens === -1 && this.x - 3 < 0){
             this._sens = 1;
-            this.y += 100;
+            this.y += 50;
         } 
         else {
-            this.x += this._sens * 100;
+            this.x += this._sens ;
         }
     }
 
