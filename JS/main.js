@@ -6,6 +6,7 @@ import G from "./G.js";
 
 let textures,v,a,m;
 let tMissiles = [];
+let tAliens = [];
 //Création de l'application pixi
 const app = new PIXI.Application({
     width : G.wST,
@@ -25,8 +26,9 @@ loader.load((loader, resources)  => {
     console.log(textures);
 
     createVaisseau();
-    createAlien();
-   
+    //createAlien();
+    createAliens(40,5);
+    
 
         gameloop();
         moveEnnemis();
@@ -66,26 +68,35 @@ function gameloop(){
     v.move();
     for(let i = 0; i < tMissiles.length; i++){
         tMissiles[i].move();
-        if(G.collide(tMissiles[i],a)){
-            app.stage.removeChild(a);
-            app.stage.removeChild(tMissiles[i]);
-            tMissiles.splice(a,1); 
-            break;
+        for(let j = 0; j < tAliens.length; j++){
+            if(G.collide(tMissiles[i],tAliens[j])){
+                app.stage.removeChild(tAliens[j]);
+                app.stage.removeChild(tMissiles[i]);
+                tMissiles.splice(i,1);
+                tAliens.splice(j,1); 
+                break;
+            }
+            if(G.collide(v,tAliens[j])){
+                Vaisseau.nbVies -= 1;
+                console.log(Vaisseau.nbVies);
+                app.stage.removeChild(tAliens[j]);
+            }
         }
     }
 
 }
 
 function createVaisseau(){
-    v = new Vaisseau(100, 300, 5, textures);
+    //v = new Vaisseau(G.wST/2, G.hST - 100, 5, textures,5);
+    v = new Vaisseau(400, 200, 5, textures);
     app.stage.addChild(v); 
 }
 
-function createAlien(){
+/* function createAlien(){
     a = new Alien(100, 100, textures);
     app.stage.addChild(a); 
 }
-
+ */
 function createMissile(){
     m = new Missile(v.x, v.y, textures);
     app.stage.addChild(m); 
@@ -94,11 +105,22 @@ function createMissile(){
 
 function moveEnnemis() {
     setTimeout(function(){
-        a.move();
+        for(let i = 0; i < tAliens.length; i++){
+            tAliens[i].move();
+        }
         moveEnnemis()
     },10);
   }
 
 
-
+//Create Aliens 
+function createAliens(nbCols, nbLines){
+    for(let i = 0; i < nbLines; i++){
+        for(let j = 0; j < nbCols; j++){
+            let temp = new Alien(100 + j*20, 100 + i*20, textures);
+            tAliens.push(temp);
+            app.stage.addChild(temp);
+        }
+    }
+}
 

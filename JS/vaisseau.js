@@ -23,6 +23,7 @@ export default class Vaisseau extends PIXI.Sprite{
         this.y = y;
         this.speed = speed;
         this._sens = 0;
+        this.nbVies = 5;
     }
 
 
