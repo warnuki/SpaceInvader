@@ -41,7 +41,7 @@ export default class Alien extends PIXI.Sprite{
             this.x += this._sens ;
         }
     }
-
+    //oui
     /**
      * Getter/ Seeter pour le sens
      */
